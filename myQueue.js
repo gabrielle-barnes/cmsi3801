@@ -1,28 +1,37 @@
-class myQueue {
-    constructor() {
-        this.storage = [];
-        this.temporary = [];
+/* Implements a queue data structure using two stacks
+ *  Achieves the FIFO behavior by transferring elements back and forth
+ *
+ *  @param toEnqueue The item to be pushed onto the stacks
+ *
+ */
+
+class MyQueue {
+  constructor() {
+    this.storage = [];
+    this.temporary = [];
+  }
+
+  // The items go back and forth between two stacks in order to keep the FIFO order
+  enqueue(toEnqueue) {
+    while (this.storage.length > 0) {
+      this.temporary.push(this.storage.pop());
     }
-    // The items go back and forth between two stacks in order to keep the FIFO order
-    enqueue(to_enqueue) {
-        while (this.storage.length != 0) {
-            const item = this.storage.pop();
-            this.temporary.push(item);
-        }
-        this.storage.push(to_enqueue);
-        while (this.temporary.length != 0) {
-            const item = this.temporary.pop();
-            this.storage.push(item);
-        }
+
+    this.storage.push(toEnqueue);
+
+    while (this.temporary.length > 0) {
+      this.storage.push(this.temporary.pop());
     }
-    // Returns the first item added in the queue
-    dequeue() {
-        return this.storage.pop();
-    }
+  }
+
+  // Returns the first item added in the queue
+  dequeue() {
+    return this.storage.pop();
+  }
 }
-// TO DO make display function
+
 // Test Case:
-const queue1 = new myQueue()
+const queue1 = new MyQueue();
 queue1.enqueue("s");
 queue1.enqueue("p");
 queue1.enqueue("i");
@@ -36,7 +45,7 @@ console.log(queue1.dequeue());
 
 console.log("\n");
 
-const queue2 = new myQueue()
+const queue2 = new MyQueue();
 queue2.enqueue("c");
 queue2.enqueue("a");
 queue2.enqueue("t");

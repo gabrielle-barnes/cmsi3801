@@ -1,48 +1,53 @@
-class LinkedList { 
-    constructor(next, data) {
-        this.next = next;
-        this.data = data;
-    }
+/* Takes the head of a linked list as input and returns true if
+ *  the linked list is a palindrome and false otherwise
+ *
+ *  Uses a stack to compare the linked list elements in reverse order
+ *
+ */
 
-    append(data) {
-        let tail = new LinkedList(null, data);
-        let current = this; // refferring to myself, this variable is a placeholder
-        while (current.next !== null) {
-            current = current.next;
-        }
-        //current.next == null at end of linked list, adding new end
-        current.next = tail;
+class Node {
+  constructor(next, data) {
+    this.next = next;
+    this.data = data;
+  }
+
+  append(data) {
+    let current = this;
+    while (current.next) {
+      current = current.next;
     }
+    current.next = new Node(null, data);
+  }
 }
 
 function palindrome(head) {
-    let current = head;
-    let stack = [];
-    // builds up stack representation of the linked list
-    // stores linked list order in reverse
-    while (current !== null) {
-        // Looping through everything don't stop at .next
-        stack.push(current.data);
-        current = current.next;
+  let current = head;
+  const stack = [];
+  // Builds up stack representation of the linked list
+  // Stores linked list order in reverse
+  while (current) {
+    // Looping through everything don't stop at .next
+    stack.push(current.data);
+    current = current.next;
+  }
+  current = head;
+  while (stack.length > 0) {
+    if (current.data !== stack.pop()) {
+      return false;
     }
-    current = head;
-    for (i = 0; i < stack.length; i++) {
-        if (current.data !== stack.pop()) {
-            return false;
-        }
-        current = current.next;
-    }
-    return true;
+    current = current.next;
+  }
+  return true;
 }
 
-let notPalindrome = new LinkedList(null, "a");
+const notPalindrome = new Node(null, "a");
 notPalindrome.append("b");
 notPalindrome.append("c");
 
-console.log(palindrome(notPalindrome)); // should return false
+console.log(palindrome(notPalindrome)); // Should return false
 
-let isPalindrome = new LinkedList(null, "a");
+const isPalindrome = new Node(null, "a");
 isPalindrome.append("b");
 isPalindrome.append("a");
 
-console.log(palindrome(isPalindrome)); // should return true
+console.log(palindrome(isPalindrome)); // Should return true
