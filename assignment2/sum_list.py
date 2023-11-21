@@ -4,74 +4,73 @@
 
  @param l1, l2 The linked lists to be added together
 '''
-
 class Node:
     def __init__(self, data, next):
         self.data = data
         self.next = next
 
+
 class LinkedList:
     def __init__(self):
         self.head = None
-    
+
     def append(self, data):
         node = Node(data, None)
-        if self.head == None:
+        if not self.head:
             self.head = node
         else:
-            temp = self.head
-            while(temp.next != None):
-                temp = temp.next
-            temp.next = node
-            # appending to the end of the list
+            pointer = self.head
+
+            while (pointer.next):
+                pointer = pointer.next
+            pointer.next = node
+            # Appending to the end of the list
 
     # Builds a string representation of the linked list
-    def __repr__(self): 
-        temp = self.head
-        s = ''
-        while(temp != None):
-            s += "(%d) -> " % temp.data
-            temp = temp.next
-        s += "|"
-        return s
-        
-# Adding the linked list nodes, while keeping track of a carry
-def addition(l1, l2):
-    temp1 = l1.head
-    temp2 = l2.head
-    answer = LinkedList()
-    carry = 0  
-    while(temp1 != None and temp2 != None):
-        my_sum = temp1.data + temp2.data + carry
+    def __repr__(self):
+        pointer = self.head
+        string_repr = ''
+        while pointer:
+            string_repr += "(%d) -> " % pointer.data
+            pointer = pointer.next
+        return string_repr + "|"
 
-        if(my_sum >= 10):
-            digit = my_sum - 10 
+# Adding the linked list nodes, while keeping track of a carry
+def addition(link_list1, link_list2):
+    pointer1 = link_list1.head
+    pointer2 = link_list2.head
+    added_list = LinkedList()
+    carry = 0
+    while (pointer1 and pointer2):
+        sum = pointer1.data + pointer2.data + carry
+
+        if sum >= 10:
+            digit = sum - 10
             carry = 1
         else:
-            digit = my_sum
+            digit = sum
             carry = 0
-        
-        temp1 = temp1.next
-        temp2 = temp2.next
-        answer.append(digit)
-        
-    return answer
-    
 
-l1 = LinkedList()
-l2 = LinkedList()
+        pointer1 = pointer1.next
+        pointer2 = pointer2.next
+        added_list.append(digit)
 
-l1.append(7)
-l1.append(1)
-l1.append(6)
+    return added_list
 
-l2.append(5)
-l2.append(9)
-l2.append(2)
 
-print(l1)
-print(l2)
+link_list1 = LinkedList()
+link_list2 = LinkedList()
+
+link_list1.append(7)
+link_list1.append(1)
+link_list1.append(6)
+
+link_list2.append(5)
+link_list2.append(9)
+link_list2.append(2)
+
+print(link_list1)
+print(link_list2)
 print("\n")
 
-my_answer = addition(l1, l2)
-print(my_answer)
+print(addition(link_list1, link_list2))

@@ -4,11 +4,11 @@
 
  @param node_c The node to be deleted
 '''
-
 class Node:
     def __init__(self, data):
         self.data = data
         self.next = None
+
 
 # Creating a linked list object
 class LinkedList:
@@ -17,13 +17,14 @@ class LinkedList:
     
     def append(self, data):
         node = Node(data)
-        if self.head is None:
+        if not self.head:
             self.head = node
         else:
-            temp = self.head
-            while(temp.next is not None):
-                temp = temp.next
-            temp.next = node
+            pointer = self.head
+            while pointer.next:
+                pointer = pointer.next
+            pointer.next = node
+
 
 # "Deletes" the middle nodes by moving the data to the next index  
 def delete_middle(node_c):
@@ -33,19 +34,19 @@ def delete_middle(node_c):
 
 
 ## TEST CASE ##
-l = LinkedList()
-l.append('a')
-l.append('b')
-l.append('c')
-l.append('d')
-l.append('e')
+linked_list = LinkedList()
+linked_list.append('a')
+linked_list.append('b')
+linked_list.append('c')
+linked_list.append('d')
+linked_list.append('e')
 
-middle_node = l.head.next.next
+middle_node = linked_list.head.next.next
 delete_middle(middle_node)
 
-temp = l.head
-while temp is not None:
-    print(temp.data, end=" -> ")
-    temp = temp.next
+pointer = linked_list.head
+while pointer:
+    print(pointer.data, end=" -> ")
+    pointer = pointer.next
 
 print("|")

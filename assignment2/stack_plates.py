@@ -1,3 +1,7 @@
+'''
+ Creates multiple stacks in a stack
+
+'''
 import functools
 
 class SetOfStacks:
@@ -6,23 +10,23 @@ class SetOfStacks:
         self.index = 0
         self.stacks = [[]]
         self.capacity = 5
-    
+
     def __len__(self):
         return functools.reduce(lambda a, b: len(a) + len(b), self.stacks)
-    
+
     def set_push(self, item):
         if len(self.stacks[self.index]) < self.capacity:
             self.stacks[self.index].append(item)
         else:
             self.index += 1
             self.stacks.append([item])
-    
+
     def set_pop(self):
         if len(self.stacks[self.index]) == 0:
-    
+
             if self.index == 0:
                 return None
-            
+
             self.index -= 1
         self.stacks[self.index].pop()
 
@@ -35,9 +39,9 @@ stack_set.set_push(2)
 stack_set.set_push(3)
 stack_set.set_push(4)
 stack_set.set_push(5)
-stack_set.set_push(6) 
+stack_set.set_push(6)
 
-print(len(stack_set)) 
+print(len(stack_set))
 
 # Test popping elements
 stack_set.set_pop()
