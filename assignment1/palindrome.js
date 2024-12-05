@@ -1,5 +1,12 @@
+/* Using a dictionary to determine if an input is a palindrome
+*  Returns true if the input is a palindrome, otherwise it will return false
+*
+*  @param customStr The string that will be checked
+*
+*/
 function is_permutation_of_palindrome(customStr) {
     const charFreq = {};
+    // Ignores whitespace in the customStr
     const loopStr = customStr.replace(/ /g, "");
 
     // Creating a dictionary of characters(keys) with their frequency(values)
@@ -27,5 +34,7 @@ function is_permutation_of_palindrome(customStr) {
     return odd_count <= 1;
 } 
 
-console.log(is_permutation_of_palindrome("tact coa"));
-console.log(is_permutation_of_palindrome("hamster"));
+console.log("Expected output true:\t", is_permutation_of_palindrome("tact coa"));
+console.log("Expected output false:\t", is_permutation_of_palindrome("hamster"));
+console.log("Expected output true:\t", is_permutation_of_palindrome("mom"));
+console.log("Expected output false:\t",is_permutation_of_palindrome("calico")); 
